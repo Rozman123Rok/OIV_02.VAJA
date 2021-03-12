@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content%}
+<br>
+<form method="POST">
+    <h3 aling="center"> Login </h3>
+    <br>
+    <div class="form-group">
+        <label for="email">Email naslov</label>
+        <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="Vpisi email"
+        />
+    </div>
+    <div class="form-group">
+        <label for="geslo">Vpisi geslo</label>
+        <input
+            type="password"
+            class="form-control"
+            id="geslo"
+            name="geslo"
+            placeholder="Vpisi geslo"
+        />
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary"> Vpisi se </button>
+</form>
+{% endblock%}

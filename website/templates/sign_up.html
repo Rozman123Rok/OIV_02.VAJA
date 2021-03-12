@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Sign up{% endblock %}
+{% block content%}
+<br>
+<form method="POST">
+    <h3 aling="center"> Sign Up </h3>
+    <br>
+    <div class="form-group">
+        <label for="email">Email naslov</label>
+        <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="Vpisi email"
+        />
+    </div>
+    <div class="form-group">
+        <label for="ime">Ime</label>
+        <input
+            type="text"
+            class="form-control"
+            id="ime"
+            name="ime"
+            placeholder="Vpisi ime"
+        />
+    </div>
+    <div class="form-group">
+        <label for="geslo1">Vpisi geslo</label>
+        <input
+            type="password"
+            class="form-control"
+            id="geslo1"
+            name="geslo1"
+            placeholder="Vpisi geslo"
+        />
+    </div>
+    <div class="form-group">
+        <label for="geslo2">Ponovi geslo</label>
+        <input
+            type="password"
+            class="form-control"
+            id="geslo2"
+            name="geslo2"
+            placeholder="Vpisi geslo"
+        />
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary"> Posli </button>
+</form>
+{% endblock%}
