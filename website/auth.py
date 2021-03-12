@@ -3,6 +3,8 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
+import hashlib
+import uuid
 
 auth = Blueprint('auth', __name__)
 
@@ -15,7 +17,12 @@ def login():
 
         user = User.query.filter_by(email=email).first()
         if user:
-            if check_password_hash(user.password, geslo):
+            #if check_password_hash(user.password, geslo):
+            # novo geslo hashamo s salt ki smo jo imeli shranjeno v bazi
+            temp_hash=hashlib.sha512(geslo.encode('utf-8') + user.salt.encode('utf-8')).hexdigest() # hasham vpisano geslo s salt
+            #print("user.pass:" + user.password)
+            #print("hash geslo:" + temp_hash)
+            if temp_hash==user.password: # preverim ce sta enaka
                 flash('Vpisan!!', category='success')
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
@@ -49,7 +56,10 @@ def sign_up():
             flash("Geslo prekratko", category='error') # da javi da je napaka
         else:
             # dodamo uporabnika v bazo
-            novi_user = User(email=email, ime = ime, password=generate_password_hash(geslo1, method='sha256'))
+            salt=uuid.uuid4().hex # dobim salt
+            hash_geslo=hashlib.sha512(geslo1.encode('utf-8') + salt.encode('utf-8')).hexdigest() # dobim hashano geslo
+            #novi_user = User(email=email, ime = ime, password=generate_password_hash(geslo1, method='sha256'), salt=salt)
+            novi_user = User(email=email, ime = ime, password=hash_geslo, salt=salt)
             db.session.add(novi_user)
             db.session.commit()
             login_user(novi_user, remember=True)

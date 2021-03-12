@@ -10,6 +10,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     ime = db.Column(db.String(150))
     notes = db.relationship('Note')
+    salt = db.Column(db.String(150))
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
